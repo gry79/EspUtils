@@ -50,6 +50,10 @@ String EspUtils::getFlashChipIdentification() {
     case 0x1340E0:
       return F("BergMicro BG25Q40, 512 KB (4 MBit)");
 
+    // ESP8285 internal flash
+    case 0x144051:
+      return F("ESP8285 internal, 1 MB (8 MBit)");
+
     // Default
     default:
       return "Unknown flash chip ID 0x" + String(ESP.getFlashChipId(), HEX);
