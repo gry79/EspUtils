@@ -52,7 +52,7 @@ String EspUtils::getFlashChipIdentification() {
 
     // Default
     default:
-      return F("Unknown flash chip ID");
+      return "Unknown flash chip ID 0x" + String(ESP.getFlashChipId(), HEX);
   }
 }
 
