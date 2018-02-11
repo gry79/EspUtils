@@ -7,6 +7,7 @@ class EspUtils {
   public:
   static String getFlashChipIdentification();
   static String getRealFlashChipSize();
+  static uint32_t getChipId();
 };
 
 #endif

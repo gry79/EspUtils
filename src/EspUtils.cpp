@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include "EspUtils.h"
 
 #include <ESP.h>
@@ -10,7 +11,9 @@ String EspUtils::getFlashChipIdentification() {
    * 40 - ? may be Speed ?                        // todo: find docu to this
    * C8 - manufacturer ID
    */
-  
+#if defined(ESP32)
+  return F("Currently not supported on ESP32");
+#elif defined(ESP8266)
   switch (ESP.getFlashChipId()) {
     // GigaDevice
     case 0x1740C8:
@@ -58,9 +61,29 @@ String EspUtils::getFlashChipIdentification() {
     default:
       return "Unknown flash chip ID 0x" + String(ESP.getFlashChipId(), HEX);
   }
+#else
+  #error Only ESP32 and ESP8266 supported
+#endif
 }
 
 String EspUtils::getRealFlashChipSize() {
+#if defined(ESP32)
+  uint32_t size = ESP.getFlashChipSize();
+  switch (size) {
+	case (1ULL * 1024ULL * 1024ULL):
+	  return F("1 MB (8 MBit)");
+	case (2ULL * 1024ULL * 1024ULL):
+	  return F("2 MB (16 MBit)");
+	case (4ULL * 1024ULL * 1024ULL):
+	  return F("4 MB (32 MBit)");
+	case (8ULL * 1024ULL * 1024ULL):
+	  return F("8 MB (64 MBit)");
+	case (16ULL * 1024ULL * 1024ULL):
+	  return F("16 MB (128 MBit)");
+	default:
+      return F("Unknown");
+  }
+#elif defined(ESP8266)
   switch ((ESP.getFlashChipId() >> 16) & 0xFF) {
     case 0x20:
       return F("64 MB (512 MBit)");
@@ -93,5 +116,17 @@ String EspUtils::getRealFlashChipSize() {
     default:
       return F("Unknown");
   }
+#else
+  #error Only ESP32 and ESP8266 supported
+#endif
 }
 
+uint32_t EspUtils::getChipId() {
+#if defined(ESP32)
+  return (uint32_t) ESP.getEfuseMac();
+#elif defined(ESP8266)
+  return ESP.getChipId();
+#else
+  #error Only ESP32 and ESP8266 supported
+#endif
+}
