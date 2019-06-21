@@ -53,6 +53,16 @@ String EspUtils::getFlashChipIdentification() {
     case 0x1340E0:
       return F("BergMicro BG25Q40, 512 KB (4 MBit)");
 
+    // Fidelix
+    case 0x1640A1:
+      return F("Fidelix FM25Q32, 4 MB (32 MBit)");
+    case 0x1540A1:
+      return F("Fidelix FM25Q16, 2 MB (16 MBit)");
+    case 0x1440A1:
+      return F("Fidelix FM25Q08, 1 MB (8 MBit)");
+    case 0x1340A1:
+      return F("Fidelix FM25Q04, 512 KB (4 MBit)");
+
     // ESP8285 internal flash
     case 0x144051:
       return F("ESP8285 internal, 1 MB (8 MBit)");
