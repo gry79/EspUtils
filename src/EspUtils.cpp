@@ -63,6 +63,16 @@ String EspUtils::getFlashChipIdentification() {
     case 0x1340A1:
       return F("Fidelix FM25Q04, 512 KB (4 MBit)");
 
+    // XMC
+    case 0x164020:
+      return F("XMC XM25Q32, 4 MB (32 MBit)");
+    case 0x154020:
+      return F("XMC XM25Q16, 2 MB (16 MBit)");
+    case 0x144020:
+      return F("XMC XM25Q08, 1 MB (8 MBit)");
+    case 0x134020:
+      return F("XMC XM25Q04, 512 KB (4 MBit)");
+
     // ESP8285 internal flash
     case 0x144051:
       return F("ESP8285 internal, 1 MB (8 MBit)");
